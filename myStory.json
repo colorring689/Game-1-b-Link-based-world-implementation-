@@ -1,58 +1,201 @@
 {
-    "Title": "Campus Life on the West Side",
-    "Credits": "Created by Adam Smith (amsmith@ucsc.edu).",
-    "InitialLocation": "Kresge",
+    "Title": "Echo Tower",
+    "Credits": "Game by Max Liu. Developed from the class template used in S2: Introduction to link-based world.",
+    "InitialLocation": "Cliff Path",
     "Locations": {
-        "Kresge": {
-            "Body": "This is Kresge College, lots of nice trees.",
+        "Cliff Path": {
+            "Body": "After your small boat crashes against the rocks, you wake up on a cold cliff path below an abandoned seaside research station. Your radio is dead, the sea is too violent to swim, and the only hope of rescue seems to be the station above you.",
             "Choices": [
                 {
-                    "Text": "South",
-                    "Target": "Porter"
+                    "Text": "Climb toward the front gate",
+                    "Target": "Front Gate"
                 }
             ]
         },
-        "Porter": {
-            "Body": "This is Porter College, the trees are nice here too.",
+        "Front Gate": {
+            "Body": "A rusted gate stands half open. Salt wind whistles through broken fencing. A faded sign reads: ECHO STATION MARINE SIGNAL RESEARCH FACILITY.",
             "Choices": [
                 {
-                    "Text": "North",
-                    "Target": "Kresge"
+                    "Text": "Go back down the cliff path",
+                    "Target": "Cliff Path"
                 },
                 {
-                    "Text": "South",
-                    "Target": "Rachel Carson"
+                    "Text": "Enter the lobby",
+                    "Target": "Lobby"
                 }
             ]
         },
-        "Rachel Carson": {
-            "Body": "Rachel Carson College, more sun and fewer trees.",
+        "Lobby": {
+            "Body": "The lobby is silent except for the drip of seawater from the ceiling. Emergency lights are dead. Dusty signs point toward security, the mess hall, and the dormitory wing.",
             "Choices": [
                 {
-                    "Text": "North",
-                    "Target": "Porter"
+                    "Text": "Go to the security office",
+                    "Target": "Security Office"
                 },
                 {
-                    "Text": "South",
-                    "Target": "Oakes"
+                    "Text": "Go to the mess hall",
+                    "Target": "Mess Hall"
+                },
+                {
+                    "Text": "Go to the dormitory wing",
+                    "Target": "Dormitory"
+                },
+                {
+                    "Text": "Return to the front gate",
+                    "Target": "Front Gate"
                 }
             ]
         },
-        "Oakes": {
-            "Body": "Oakes College, even the buildings have tree bark on them.",
+        "Security Office": {
+            "Body": "Old monitors stare back at you with blank screens. A maintenance map on the wall shows that the lighthouse control room requires backup power from the generator.",
             "Choices": [
                 {
-                    "Text": "North",
-                    "Target": "Rachel Carson"
+                    "Text": "Return to the lobby",
+                    "Target": "Lobby"
                 },
                 {
-                    "Text": "South",
-                    "Target": "Beyond"
+                    "Text": "Search the storage room",
+                    "Target": "Storage Room"
                 }
             ]
         },
-        "Beyond": {
-            "Body": "Grass, don't forget to check for ticks!"
+        "Storage Room": {
+            "Body": "Metal shelves line the walls. Most supplies are ruined by damp air, but one labeled case still looks usable.",
+            "Items": [
+                {
+                    "Id": "fuse",
+                    "Name": "replacement fuse",
+                    "PickupText": "You take the replacement fuse. If the generator is missing a fuse, this might restore power."
+                }
+            ],
+            "Choices": [
+                {
+                    "Text": "Go back to the security office",
+                    "Target": "Security Office"
+                }
+            ]
+        },
+        "Mess Hall": {
+            "Body": "Trays and cups are still scattered across the tables as if everyone left in a hurry. A side corridor leads to the radio room.",
+            "Choices": [
+                {
+                    "Text": "Return to the lobby",
+                    "Target": "Lobby"
+                },
+                {
+                    "Text": "Enter the radio room",
+                    "Target": "Radio Room"
+                }
+            ]
+        },
+        "Dormitory": {
+            "Body": "The dormitory is full of narrow beds and abandoned lockers. Personal notes suggest the staff were frightened by a strange signal from the ocean.",
+            "Choices": [
+                {
+                    "Text": "Return to the lobby",
+                    "Target": "Lobby"
+                },
+                {
+                    "Text": "Follow the flooded hall",
+                    "Target": "Flooded Hall"
+                }
+            ]
+        },
+        "Flooded Hall": {
+            "Body": "Cold water covers the floor. The sound of waves echoes through cracked concrete. At the end of the hall, a stairwell rises toward the lighthouse section.",
+            "Choices": [
+                {
+                    "Text": "Go back to the dormitory",
+                    "Target": "Dormitory"
+                },
+                {
+                    "Text": "Climb to the lighthouse stairwell",
+                    "Target": "Lighthouse Stairwell"
+                }
+            ]
+        },
+        "Radio Room": {
+            "SceneType": "RadioRoom",
+            "Body": "A large radio console still has faint power from an emergency battery. The machine is old, but the dial still moves.",
+            "RadioStates": [
+                {
+                    "Label": "OFF",
+                    "Message": "The radio is silent. Only the distant sound of the sea reaches you."
+                },
+                {
+                    "Label": "STATIC",
+                    "Message": "A burst of static fills the room. Beneath the noise, you think you hear broken voices repeating the same warning."
+                },
+                {
+                    "Label": "SIGNAL",
+                    "Message": "\"...backup power required... lighthouse control access denied... please restore generator output...\""
+                }
+            ],
+            "Choices": [
+                {
+                    "Text": "Go back to the mess hall",
+                    "Target": "Mess Hall"
+                },
+                {
+                    "Text": "Enter the generator room",
+                    "Target": "Generator Room"
+                }
+            ]
+        },
+        "Generator Room": {
+            "Body": "A backup generator sits in the middle of the room. One fuse slot is empty, and the control panel is dark.",
+            "FuseBox": {
+                "RequiredItem": "fuse",
+                "SetsFlag": "powerRestored",
+                "SuccessText": "You install the replacement fuse. The generator roars to life, and power surges back into the station.",
+                "AlreadyDoneText": "The generator is already running. The station now has backup power.",
+                "MissingItemText": "There is an empty fuse slot here. You need a replacement fuse."
+            },
+            "Choices": [
+                {
+                    "Text": "Return to the radio room",
+                    "Target": "Radio Room"
+                },
+                {
+                    "Text": "Go to the lighthouse stairwell",
+                    "Target": "Lighthouse Stairwell"
+                }
+            ]
+        },
+        "Lighthouse Stairwell": {
+            "Body": "A spiral metal stairwell climbs through the tower. At the top is a heavy control room door with an electronic lock.",
+            "Choices": [
+                {
+                    "Text": "Return to the flooded hall",
+                    "Target": "Flooded Hall"
+                },
+                {
+                    "Text": "Return to the generator room",
+                    "Target": "Generator Room"
+                },
+                {
+                    "Text": "Open the control room door",
+                    "Target": "Sealed Control Room",
+                    "RequiresFlag": "powerRestored",
+                    "LockedText": "The control room door will not open. The lock has no power."
+                }
+            ]
+        },
+        "Sealed Control Room": {
+            "Body": "The control room is cramped and full of corroded instruments, but one emergency transmitter is still functional. Through the glass, you can see the ocean raging below.",
+            "Choices": [
+                {
+                    "Text": "Return to the lighthouse stairwell",
+                    "Target": "Lighthouse Stairwell"
+                },
+                {
+                    "Text": "Climb to the tower roof",
+                    "Target": "Tower Roof"
+                }
+            ]
+        },
+        "Tower Roof": {
+            "Body": "You reach the roof and activate the emergency beacon. A bright signal cuts through the fog and sweeps across the sea. Whatever happened here is still a mystery, but now someone might find you before the ocean does."
         }
     }
 }

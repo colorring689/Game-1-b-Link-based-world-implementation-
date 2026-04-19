@@ -13,12 +13,19 @@ class Engine {
         this.output = document.body.appendChild(document.createElement("div"));
         this.actionsContainer = document.body.appendChild(document.createElement("div"));
 
+        // Player Status
+        this.state = {
+            inventory: [],
+            flags: {},
+            radioStates: {}
+        };
+
         fetch(storyDataUrl).then(
             (response) => response.json()
         ).then(
             (json) => {
                 this.storyData = json;
-                this.gotoScene(firstSceneClass)
+                this.gotoScene(firstSceneClass);
             }
         );
     }
@@ -32,8 +39,8 @@ class Engine {
         let button = this.actionsContainer.appendChild(document.createElement("button"));
         button.innerText = action;
         button.onclick = () => {
-            while(this.actionsContainer.firstChild) {
-                this.actionsContainer.removeChild(this.actionsContainer.firstChild)
+            while (this.actionsContainer.firstChild) {
+                this.actionsContainer.removeChild(this.actionsContainer.firstChild);
             }
             this.scene.handleChoice(data);
         }
@@ -48,6 +55,43 @@ class Engine {
         let div = document.createElement("div");
         div.innerHTML = msg;
         this.output.appendChild(div);
+    }
+
+    
+    hasItem(itemId) {
+        return this.state.inventory.includes(itemId);
+    }
+
+    addItem(itemId) {
+        if (!this.hasItem(itemId)) {
+            this.state.inventory.push(itemId);
+        }
+    }
+
+    removeItem(itemId){
+        let index = this.state.inventory.indexOf(itemId);
+        if (index !== -1) {
+            this.state.inventory.splice(index, 1);
+        }
+    }
+
+    hasFlag(flagName) {
+        return !!this.state.flags[flagName];
+    }
+
+    setFlag(flagName, value = true) {
+        this.state.flags[flagName] = value;
+    }
+
+    getRadioState(locationKey) {
+        if (this.state.radioStates[locationKey] === undefined) {
+            this.state.radioStates[locationKey] = 0;
+        }
+        return this.state.radioStates[locationKey];
+    }
+
+    setRadioState(locationKey, value) {
+        this.state.radioStates[locationKey] = value;
     }
 }
 
