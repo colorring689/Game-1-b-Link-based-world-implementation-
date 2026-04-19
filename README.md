@@ -1,4 +1,4 @@
-# Echo Station
+# Echo tower
 
 This is a simple link-based story game made for a class assignment.
 
